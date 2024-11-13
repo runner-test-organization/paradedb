@@ -18,7 +18,6 @@ on:
 
 concurrency:
   group: publish-pg_search-${{ github.head_ref || github.ref }}
-  cancel-in-progress: false
 
 # Used by actions/attest-build-provenance to sign the builds
 permissions:
@@ -31,9 +30,6 @@ jobs:
     runs-on: ${{ matrix.runner }}
     container:
       image: ${{ matrix.image }}
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
     strategy:
       matrix:
         include:
