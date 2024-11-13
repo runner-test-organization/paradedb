@@ -18,7 +18,7 @@ on:
 
 concurrency:
   group: publish-pg_search-${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 # Used by actions/attest-build-provenance to sign the builds
 permissions:
