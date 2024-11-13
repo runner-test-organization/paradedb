@@ -32,6 +32,7 @@ jobs:
       image: ${{ matrix.image }}
     strategy:
       fail-fast: false
+      max-parallel: 2
       matrix:
         include:
           # Ubuntu 22.04
