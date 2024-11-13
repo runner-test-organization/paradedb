@@ -204,6 +204,12 @@ jobs:
       - name: Checkout Git Repository
         uses: actions/checkout@v4
 
+      - name: IPv4 Address
+        run: curl -sL --ipv4 ifconfig.me
+
+      - name: IPv6 Address
+        run: curl -sL --ipv6 ifconfig.me
+
       - name: Install Debian Dependencies
         if: ${{ matrix.image == 'debian:11-slim' || matrix.image == 'debian:12-slim' || matrix.image == 'ubuntu:22.04' || matrix.image == 'ubuntu:24.04' }}
         run: DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y sudo wget curl gnupg lsb-release pkg-config libssl-dev jq
