@@ -371,17 +371,9 @@ jobs:
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v4
-
-      - name: mtr rustup
-        run: |
-          # Output file
-          OUTPUT_FILE="/tmp/mtr-report.txt"
-
-          # Target
-          TARGET="static.rust-lang.org"
-
-          # Run MTR in background
-          nohup mtr -s 1000 -r "$TARGET" > "$OUTPUT_FILE" &
+      
+      - name: Setup depot
+        uses: depot/setup-action@v1
 
       - name: Install Debian Dependencies
         if: ${{ matrix.image == 'debian:11-slim' || matrix.image == 'debian:12-slim' || matrix.image == 'ubuntu:22.04' || matrix.image == 'ubuntu:24.04' }}
