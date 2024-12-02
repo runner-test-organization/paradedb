@@ -34,7 +34,7 @@ concurrency:
 jobs:
   benchmark-pg_search:
     name: Benchmark pg_search
-    runs-on: ubicloud-standard-8
+    runs-on: blacksmith-8vcpu-ubuntu-2204
     if: github.event.pull_request.draft == false
     strategy:
       matrix:

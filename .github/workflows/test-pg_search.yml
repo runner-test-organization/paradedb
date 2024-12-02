@@ -42,19 +42,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - runner: ubicloud-standard-8
+          - runner: blacksmith-8vcpu-ubuntu-2204
             pg_version: 13
             arch: amd64
-          - runner: ubicloud-standard-8
+          - runner: blacksmith-8vcpu-ubuntu-2204
             pg_version: 14
             arch: amd64
-          - runner: ubicloud-standard-8
+          - runner: blacksmith-8vcpu-ubuntu-2204
             pg_version: 15
             arch: amd64
-          - runner: ubicloud-standard-8
+          - runner: blacksmith-8vcpu-ubuntu-2204
             pg_version: 16
             arch: amd64
-          - runner: ubicloud-standard-8
+          - runner: blacksmith-8vcpu-ubuntu-2204
             pg_version: 17
             arch: amd64
     env:
@@ -181,7 +181,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - runner: ubicloud-standard-8
+          - runner: blacksmith-8vcpu-ubuntu-2204
             pg_version: 17
             arch: amd64
     env:
