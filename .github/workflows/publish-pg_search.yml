@@ -40,6 +40,39 @@ jobs:
             pg_version: 14
             arch: amd64
 
+          # Ubuntu 24.04
+          - runner: blacksmith-2vcpu-ubuntu-2404
+            image: ubuntu:24.04
+            pg_version: 14
+            arch: amd64
+            # Ubuntu 22.04
+          - runner: blacksmith-2vcpu-ubuntu-2204
+            image: ubuntu:22.04
+            pg_version: 14
+            arch: amd64
+
+          # Ubuntu 24.04
+          - runner: blacksmith-2vcpu-ubuntu-2404
+            image: ubuntu:24.04
+            pg_version: 14
+            arch: amd64
+            # Ubuntu 22.04
+          - runner: blacksmith-2vcpu-ubuntu-2204
+            image: ubuntu:22.04
+            pg_version: 14
+            arch: amd64
+
+          # Ubuntu 24.04
+          - runner: blacksmith-2vcpu-ubuntu-2404
+            image: ubuntu:24.04
+            pg_version: 14
+            arch: amd64
+            # Ubuntu 22.04
+          - runner: blacksmith-2vcpu-ubuntu-2204
+            image: ubuntu:22.04
+            pg_version: 14
+            arch: amd64
+
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v4
@@ -48,5 +81,39 @@ jobs:
         if: ${{ matrix.image == 'debian:11-slim' || matrix.image == 'debian:12-slim' || matrix.image == 'ubuntu:22.04' || matrix.image == 'ubuntu:24.04' }}
         run: DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y sudo wget curl gnupg lsb-release pkg-config libssl-dev jq
 
-      - name: cat docker daemon.json
+      - name: Update Package Index
+        run: sudo apt-get update
+
+      - name: Install Required Packages
+        run: |
+          sudo apt-get install -y \
+            ca-certificates \
+            curl \
+            gnupg
+
+      - name: Add Docker's Official GPG Key
+        run: |
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+      - name: Set Up Docker Repository
+        run: |
+          echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+          $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+      - name: Install Docker Engine
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+      - name: Verify Docker Installation
+        run: docker --version
+
+      - name: cat /etc/docker/daemon.json
         run: cat /etc/docker/daemon.json
+
+      - name: docker pull ubuntu
+        run: docker pull ubuntu
+
+      - name: download pytorch iamge
+        run: docker pull pytorch/pytorch
